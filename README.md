@@ -1,4 +1,4 @@
-# Purescript bootstrap project
+# PureScript bootstrap project
 
 This is a bootstrap project for developing web apps with PureScript. It is a simple server written in PureScript that serves a single static page running PureScript client code. Source files are rebuilt and the server is restarted when source code changes.
 
