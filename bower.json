@@ -1,0 +1,20 @@
+{
+  "name": "purescript-bootstrap",
+  "version": "0.0.0",
+  "authors": [
+    "Nicholas Kariniemi <nicholas.kariniemi@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "purescript-express": "~0.2.0",
+    "purescript-node-buffer": "~0.0.1",
+    "purescript-node-fs": "~0.5.0"
+  }
+}
