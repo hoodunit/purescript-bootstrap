@@ -23,14 +23,9 @@ errorHandler :: Error -> Handler
 errorHandler err = do
     setStatus 400
     sendJson {error: message err}
-       
-indexHandler :: Handler
-indexHandler = do
-    cb <- capture sendContentsHandler
-    liftEff $ File.readFile "public/index.html" cb
     
-jsHandler :: String -> Handler
-jsHandler file = do
+fileHandler :: String -> Handler
+fileHandler file = do
     cb <- capture sendContentsHandler
     liftEff $ File.readFile file cb
 
@@ -46,8 +41,8 @@ appSetup :: App
 appSetup = do
     setProp "json spaces" 4
     use logger
-    get "/" indexHandler
-    get "/public/js/client.js" $ jsHandler "public/js/client.js"
+    get "/" $ fileHandler "public/index.html"
+    get "/public/js/client.js" $ fileHandler "public/js/client.js"
     useOnError errorHandler
     
 main = do
