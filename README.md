@@ -6,10 +6,10 @@ Tech stack: npm + bower + gulp + browserify + express
 
 ## Install external dependencies
 
-* [PureScript][http://www.purescript.org/download/]
-* [Node Package Manager][https://nodejs.org/]
-* [Bower][http://bower.io/]
-* [gulp.js][http://gulpjs.com/]: `npm install --global gulp`
+* [PureScript](http://www.purescript.org/download/)
+* [Node Package Manager](https://nodejs.org/)
+* [Bower](http://bower.io/)
+* [gulp.js](http://gulpjs.com/): `npm install --global gulp`
 
 ## Install project dependencies
 
