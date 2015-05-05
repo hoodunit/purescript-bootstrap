@@ -51,13 +51,17 @@ gulp.task('client-browserify', ['client-compile'], function() {
 
 gulp.task('server', function(){
   return gulp.src([paths.server, paths.dependencies])
-    .pipe(purescript.psc({main: true, output: 'server.js'}))
-    .pipe(gulp.dest('build'))
+    .pipe(purescript.psc({
+      main: true, 
+      output: 'server.js',
+      module: ['Server.Main']
+    }))
     .on('error', function(e){
       console.error('task server:');
       console.error(e.message);
       this.emit('end');
-    });
+    })
+    .pipe(gulp.dest('build'));
 });
 
 gulp.task('watch', function() {
