@@ -23,13 +23,41 @@ gulp.task('client-compile', function(){
       output: 'client_nobrowserify.js', 
       module: ['Main']
     }))
+    .on('error', function(e){
+      console.error('task client-compile:');
+      console.error(e.message);
+      this.emit('end');
+    })
     .pipe(gulp.dest('build'));
 });
+
+gulp.task('client-browserify', ['client-compile'], function() {
+  var bundleStream = browserify('./build/client_nobrowserify.js').bundle()
+  bundleStream
+    .pipe(source('client.js'))
+    .pipe(rename('client.js'))
+    .pipe(gulp.dest('./public/js'))
+    .on('error', function(e) {
+      console.error('task client-browserify:');
+      console.error(e);
+      this.emit('end');
+    })
+    .on('error', function(e){
+      console.error('task client-browserify:');
+      console.error(e.message);
+      this.emit('end');
+    });
+})
 
 gulp.task('server', function(){
   return gulp.src([paths.server, paths.dependencies])
     .pipe(purescript.psc({main: true, output: 'server.js'}))
-    .pipe(gulp.dest('build'));
+    .pipe(gulp.dest('build'))
+    .on('error', function(e){
+      console.error('task server:');
+      console.error(e.message);
+      this.emit('end');
+    });
 });
 
 gulp.task('watch', function() {
@@ -48,14 +76,6 @@ gulp.task('demon', function () {
     console.log('Restarting server');
   });
 });
-
-gulp.task('client-browserify', ['client-compile'], function() {
-  var bundleStream = browserify('./build/client_nobrowserify.js').bundle()
-  bundleStream
-    .pipe(source('client.js'))
-    .pipe(rename('client.js'))
-    .pipe(gulp.dest('./public/js'))
-})
 
 gulp.task('client', ['client-browserify']);
 gulp.task('default', ['server', 'client', 'watch', 'demon']);
