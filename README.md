@@ -8,18 +8,16 @@ Tech stack: npm + bower + gulp + browserify + express
 
 * [PureScript](http://www.purescript.org/download/)
 * [Node Package Manager](https://nodejs.org/)
-* [Bower](http://bower.io/)
-* [gulp.js](http://gulpjs.com/): `npm install --global gulp`
 
 ## Install project dependencies
 
 ```
 npm install
-bower install
+./bower.sh update
 ```
 
 ## Build and run project
 
 ```
-gulp
+./gulp.sh
 ```
