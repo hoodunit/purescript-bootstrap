@@ -69,8 +69,8 @@ gulp.task('watch', function() {
   gulp.watch(paths.client, ['client']);
 });
 
-gulp.task('demon', function () {
-  nodemon({
+gulp.task('run-server', function () {
+  return nodemon({
     script: 'build/server.js',
     ext: 'js',
     env: {
@@ -82,4 +82,4 @@ gulp.task('demon', function () {
 });
 
 gulp.task('client', ['client-browserify']);
-gulp.task('default', ['server', 'client', 'watch', 'demon']);
+gulp.task('default', ['server', 'client', 'watch', 'run-server']);
