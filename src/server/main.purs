@@ -1,17 +1,13 @@
 module Bootstrap.Server.Main where 
 
-import Debug.Trace
+import Debug.Trace (trace)
 import Data.Function (Fn3(..))
-import Data.Foreign.EasyFFI
-import Control.Monad.Eff
-import Control.Monad.Eff.Class
-import Control.Monad.Eff.Exception
-import Node.Express.Types
-import Node.Express.App
-import Node.Express.Handler
-import qualified Node.FS.Async as File
-import qualified Node.Buffer as Buf
-import Node.Encoding
+import Data.Foreign.EasyFFI (unsafeForeignFunction)
+import Control.Monad.Eff.Class (liftEff)
+import Control.Monad.Eff.Exception (Error(..), message)
+import Node.Express.Types (Request(..), Response(..), ExpressM(..))
+import Node.Express.App (App(..), listenHttp, use, useExternal, useOnError)
+import Node.Express.Handler (Handler(..), setStatus, sendJson, getOriginalUrl, next)
 
 foreign import staticMiddleware "var staticMiddleware = require('express').static"
     :: String -> Fn3 Request Response (ExpressM Unit) (ExpressM Unit)
@@ -34,6 +30,6 @@ appSetup = do
     useOnError errorHandler
     
 main = do
-    port <- unsafeForeignFunction [""] "process.env.PORT || 8080"
-    listenHttp appSetup port \_ ->
-        trace $ "Server running on localhost:" ++ show port
+  port <- unsafeForeignFunction [""] "process.env.PORT || 8080"
+  listenHttp appSetup port \_ ->
+    trace $ "Server running on localhost:" ++ show port
