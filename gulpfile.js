@@ -19,9 +19,9 @@ gulp.task('clean', function(cb) {
 gulp.task('client-compile', function(){
   return gulp.src([paths.client, paths.dependencies])
     .pipe(purescript.psc({
-      main: true, 
+      main: 'Bootstrap.Client.Main', 
       output: 'client_nobrowserify.js', 
-      module: ['Main']
+      module: ['Bootstrap.Client.Main']
     }))
     .on('error', function(e){
       console.error('task client-compile:');
@@ -39,11 +39,6 @@ gulp.task('client-browserify', ['client-compile'], function() {
     .pipe(gulp.dest('./public/js'))
     .on('error', function(e) {
       console.error('task client-browserify:');
-      console.error(e);
-      this.emit('end');
-    })
-    .on('error', function(e){
-      console.error('task client-browserify:');
       console.error(e.message);
       this.emit('end');
     });
@@ -52,9 +47,9 @@ gulp.task('client-browserify', ['client-compile'], function() {
 gulp.task('server', function(){
   return gulp.src([paths.server, paths.dependencies])
     .pipe(purescript.psc({
-      main: true, 
+      main: 'Bootstrap.Server.Main', 
       output: 'server.js',
-      module: ['Server.Main']
+      module: ['Bootstrap.Server.Main']
     }))
     .on('error', function(e){
       console.error('task server:');

@@ -1,8 +1,7 @@
-module Main where 
+module Bootstrap.Server.Main where 
 
 import Debug.Trace
-import Data.Either
-import Data.Function
+import Data.Function (Fn3(..))
 import Data.Foreign.EasyFFI
 import Control.Monad.Eff
 import Control.Monad.Eff.Class
@@ -30,7 +29,6 @@ errorHandler err = do
             
 appSetup :: App
 appSetup = do
-    setProp "json spaces" 4
     use logger
     useExternal $ staticMiddleware "public"
     useOnError errorHandler
