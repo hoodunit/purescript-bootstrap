@@ -9,7 +9,8 @@ var rename = require('gulp-rename')
 var paths = {
   server: 'src/server/**/*.purs',
   client: 'src/client/**/*.purs',
-  dependencies: 'bower_components/**/src/**/*.purs'
+  dependencies: 'bower_components/purescript-*/src/**/*.purs',
+  foreigns: ['src/**/*.js', 'bower_components/purescript-*/src/**/*.js']
 };
 
 gulp.task('clean', function(cb) {
@@ -45,12 +46,15 @@ gulp.task('client-browserify', ['client-compile'], function() {
 })
 
 gulp.task('server', function(){
-  return gulp.src([paths.server, paths.dependencies])
-    .pipe(purescript.psc({
+  // return gulp.src([paths.server, paths.dependencies])
+  //   .pipe(purescript.psc({
+  return purescript.psc({
       main: 'Bootstrap.Server.Main', 
       output: 'server.js',
-      module: ['Bootstrap.Server.Main']
-    }))
+      module: ['Bootstrap.Server.Main'],
+      src: [paths.server, paths.dependencies],
+      ffi: paths.foreigns
+    })
     .on('error', function(e){
       console.error('task server:');
       console.error(e.message);

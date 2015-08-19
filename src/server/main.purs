@@ -9,8 +9,7 @@ import Node.Express.Types (Request(..), Response(..), ExpressM(..))
 import Node.Express.App (App(..), listenHttp, use, useExternal, useOnError)
 import Node.Express.Handler (Handler(..), setStatus, sendJson, getOriginalUrl, next)
 
-foreign import staticMiddleware "var staticMiddleware = require('express').static"
-    :: String -> Fn3 Request Response (ExpressM Unit) (ExpressM Unit)
+foreign import staticMiddleware :: String -> Fn3 Request Response (ExpressM Unit) (ExpressM Unit)
 
 logger :: Handler
 logger = do
